@@ -33,6 +33,7 @@ public class MedicoService {
         return medico;
     }
 
+    @Transactional
     public void deletarMedico(Long id) {
 
         Medico medico = pegaMedico(id);
