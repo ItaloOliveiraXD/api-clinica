@@ -1,5 +1,6 @@
 package br.com.projeto.apiclinica.domain.models;
 
+import br.com.projeto.apiclinica.api.dto.medico.MedicoDto;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -28,16 +29,26 @@ public class Medico {
     private Long id;
     
     private String nome;
-
+    
     private String email;
-
+    
     private String telefone;
-
+    
     private String crm;
-
+    
     @Enumerated(EnumType.STRING)
-    private Especialidade Especialidade;
+    private Especialidade especialidade;
     
     @Embedded
     private Endereco endereco;
+
+    public Medico(MedicoDto medicoDto) {
+
+        this.nome = medicoDto.nome();
+        this.email = medicoDto.email();
+        this.telefone = medicoDto.telefone();
+        this.crm = medicoDto.crm();
+        this.especialidade = medicoDto.especialidade();
+        this.endereco = new Endereco(medicoDto.endereco());
+    }
 }
