@@ -3,11 +3,11 @@ package br.com.projeto.apiclinica.domain.service;
 import br.com.projeto.apiclinica.api.dto.paciente.PacienteDto;
 import br.com.projeto.apiclinica.domain.models.Paciente;
 import br.com.projeto.apiclinica.domain.repository.PacienteRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PacienteService {
@@ -15,7 +15,8 @@ public class PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    public Paciente cadastraPaciente(@Valid PacienteDto pacienteDto) {
+    @Transactional
+    public Paciente cadastraPaciente(PacienteDto pacienteDto) {
 
         return pacienteRepository.save(new Paciente(pacienteDto));
     }
@@ -29,6 +30,13 @@ public class PacienteService {
 
         Paciente paciente = pacienteRepository.findById(id).orElseThrow();
         return paciente;
+    }
+
+    @Transactional
+    public void deletaPaciente(Long id) {
+
+        Paciente paciente = pegaPaciente(id);
+        pacienteRepository.delete(paciente);
     }
     
 }
