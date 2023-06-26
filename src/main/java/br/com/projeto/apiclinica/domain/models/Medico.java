@@ -1,5 +1,6 @@
 package br.com.projeto.apiclinica.domain.models;
 
+import br.com.projeto.apiclinica.api.dto.medico.AtualizacaoDeMedicoDto;
 import br.com.projeto.apiclinica.api.dto.medico.MedicoDto;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -48,7 +49,23 @@ public class Medico {
         this.email = medicoDto.email();
         this.telefone = medicoDto.telefone();
         this.crm = medicoDto.crm();
-        this.especialidade = medicoDto.especialidade();
+        this.especialidade = Especialidade.valueOf(medicoDto.especialidade());
         this.endereco = new Endereco(medicoDto.endereco());
+    }
+
+    public void atualizarMedico(AtualizacaoDeMedicoDto medicoDto) {
+
+        if (medicoDto.nome() != null) {
+            this.nome = medicoDto.nome();
+        }
+        if (medicoDto.email() != null) {
+            this.email = medicoDto.email();
+        }
+        if (medicoDto.telefone() != null) {
+            this.telefone = medicoDto.telefone();
+        }
+        if (medicoDto.endereco() != null) {
+            this.endereco = new Endereco(medicoDto.endereco());
+        }
     }
 }

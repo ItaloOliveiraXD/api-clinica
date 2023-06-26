@@ -1,7 +1,6 @@
 package br.com.projeto.apiclinica.api.dto.medico;
 
 import br.com.projeto.apiclinica.api.dto.endereco.EnderecoDto;
-import br.com.projeto.apiclinica.domain.models.Especialidade;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -19,7 +18,7 @@ public record MedicoDto(
         @Pattern(regexp = "\\d{4,6}")
         String crm,
         @NotBlank
-        Especialidade especialidade,
+        String especialidade,
         @NotNull
         @Valid
         EnderecoDto endereco) {
