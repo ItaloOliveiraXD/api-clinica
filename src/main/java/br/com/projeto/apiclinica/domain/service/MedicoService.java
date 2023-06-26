@@ -1,6 +1,8 @@
 package br.com.projeto.apiclinica.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,12 @@ public class MedicoService {
     public Medico cadastraMedico(MedicoDto medicoDto) {
 
         return medicoRepository.save(new Medico(medicoDto));
+    }
+
+    public Page<Medico> listaMedicos(Pageable page) {
+
+        Page<Medico> medicos = medicoRepository.findAll(page);
+        return medicos;
     }
     
 }
