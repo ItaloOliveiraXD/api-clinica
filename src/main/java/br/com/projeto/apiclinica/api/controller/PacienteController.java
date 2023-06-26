@@ -1,5 +1,6 @@
 package br.com.projeto.apiclinica.api.controller;
 
+import br.com.projeto.apiclinica.api.dto.paciente.AtualizacaoDePacienteDto;
 import br.com.projeto.apiclinica.api.dto.paciente.DetalhePacienteDto;
 import br.com.projeto.apiclinica.api.dto.paciente.ListaPacienteDto;
 import br.com.projeto.apiclinica.api.dto.paciente.PacienteDto;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +27,13 @@ import java.net.URI;
 @RestController
 @RequestMapping("/pacientes")
 public class PacienteController {
-    
+
     @Autowired
     private PacienteService pacienteService;
 
     @PostMapping
-    public ResponseEntity<DetalhePacienteDto> cadastra(@RequestBody @Valid PacienteDto pacienteDto, UriComponentsBuilder uriBuilder ) {
+    public ResponseEntity<DetalhePacienteDto> cadastra(@RequestBody @Valid PacienteDto pacienteDto,
+            UriComponentsBuilder uriBuilder) {
 
         Paciente paciente = pacienteService.cadastraPaciente(pacienteDto);
         URI uri = uriBuilder.path("pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
@@ -53,5 +56,13 @@ public class PacienteController {
     }
 
     @PutMapping
-    public ResponseEntity<DetalhePacienteDto>
+    @Transactional
+    public ResponseEntity<DetalhePacienteDto> atualiza(
+            @RequestBody @Valid AtualizacaoDePacienteDto atualizacaoDePaciente) {
+
+        Paciente paciente = pacienteService.pegaPaciente(atualizacaoDePaciente.id());
+        paciente.atualizarPaciente(atualizacaoDePaciente);
+
+        return ResponseEntity.ok().body(new DetalhePacienteDto(paciente));
+    }
 }
