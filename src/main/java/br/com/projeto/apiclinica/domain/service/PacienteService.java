@@ -24,5 +24,11 @@ public class PacienteService {
 
         return pacienteRepository.findAll(page);
     }
+
+    public Paciente pegaPaciente(Long id) {
+
+        Paciente paciente = pacienteRepository.findById(id).orElseThrow();
+        return paciente;
+    }
     
 }

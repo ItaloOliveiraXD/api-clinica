@@ -12,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,4 +44,14 @@ public class PacienteController {
         Page<ListaPacienteDto> pacientes = pacienteService.listaPacientes(page).map(ListaPacienteDto::new);
         return ResponseEntity.ok().body(pacientes);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DetalhePacienteDto> visualiza(@PathVariable Long id) {
+
+        Paciente paciente = pacienteService.pegaPaciente(id);
+        return ResponseEntity.ok().body(new DetalhePacienteDto(paciente));
+    }
+
+    @PutMapping
+    public ResponseEntity<DetalhePacienteDto>
 }
