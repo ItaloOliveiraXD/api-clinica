@@ -1,14 +1,13 @@
 package br.com.projeto.apiclinica.domain.service;
 
+import br.com.projeto.apiclinica.api.dto.medico.MedicoDto;
+import br.com.projeto.apiclinica.domain.models.Medico;
+import br.com.projeto.apiclinica.domain.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import br.com.projeto.apiclinica.api.dto.medico.MedicoDto;
-import br.com.projeto.apiclinica.domain.models.Medico;
-import br.com.projeto.apiclinica.domain.repository.MedicoRepository;
 
 @Service
 public class MedicoService {
@@ -27,5 +26,11 @@ public class MedicoService {
         Page<Medico> medicos = medicoRepository.findAll(page);
         return medicos;
     }
-    
+
+    public Medico pegaMedico(Long id) {
+
+        Medico medico = medicoRepository.findById(id).orElseThrow();
+        return medico;
+    }
+
 }
