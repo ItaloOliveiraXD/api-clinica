@@ -33,4 +33,10 @@ public class MedicoService {
         return medico;
     }
 
+    public void deletarMedico(Long id) {
+
+        Medico medico = pegaMedico(id);
+        medicoRepository.delete(medico);
+    }
+
 }
