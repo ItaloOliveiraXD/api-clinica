@@ -1,5 +1,6 @@
 package br.com.projeto.apiclinica.domain.models;
 
+import br.com.projeto.apiclinica.api.dto.paciente.PacienteDto;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +29,16 @@ public class Paciente {
     private String telefone;
     private String email;
     private String cpf;
-
+    
     @Embedded
     private Endereco endereco; 
+
+    public Paciente(PacienteDto pacienteDto) {
+
+        this.nome = pacienteDto.nome();
+        this.telefone = pacienteDto.telefone();
+        this.email = pacienteDto.email();
+        this.cpf = pacienteDto.cpf();
+        this.endereco = new Endereco(pacienteDto.endereco());
+    }
 }
