@@ -3,6 +3,8 @@ package br.com.projeto.apiclinica.domain.service;
 import br.com.projeto.apiclinica.api.dto.medico.MedicoDto;
 import br.com.projeto.apiclinica.domain.models.Medico;
 import br.com.projeto.apiclinica.domain.repository.MedicoRepository;
+import br.com.projeto.apiclinica.infra.validacao.exception.DomainException;
+import br.com.projeto.apiclinica.infra.validacao.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,17 @@ public class MedicoService {
     @Transactional
     public Medico cadastraMedico(MedicoDto medicoDto) {
 
+        boolean existsByCrm = medicoRepository.existsByCrm(medicoDto.crm());
+        boolean existsByEmail = medicoRepository.existsByEmail(medicoDto.email());
+
+        if (existsByCrm) {
+            throw new DomainException("CRM já está cadastrado!");
+        }
+
+        if (existsByEmail) {
+            throw new DomainException("Email já está cadastrado!");
+        }
+
         return medicoRepository.save(new Medico(medicoDto));
     }
 
@@ -29,8 +42,8 @@ public class MedicoService {
 
     public Medico pegaMedico(Long id) {
 
-        Medico medico = medicoRepository.findById(id).orElseThrow();
-        return medico;
+        return medicoRepository.findById(id).orElseThrow(() -> new NotFoundException("Médico não encontrado!"));
+        
     }
 
     @Transactional
