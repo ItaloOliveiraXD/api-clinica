@@ -2,7 +2,10 @@ package br.com.projeto.apiclinica.api.controller;
 
 import br.com.projeto.apiclinica.api.dto.consulta.DadosAgendamentoConsultaDTO;
 import br.com.projeto.apiclinica.api.dto.consulta.DadosDetalhamentoConsultaDto;
+import br.com.projeto.apiclinica.domain.models.Consulta;
+import br.com.projeto.apiclinica.domain.service.AgendaDeConsultaService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,9 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/consultas")
 public class ConsultaController {
 
+    @Autowired
+    private AgendaDeConsultaService agendaDeConsultaService;
+
     @PostMapping
-    public ResponseEntity<Object> agendar(@RequestBody @Valid DadosAgendamentoConsultaDTO dados) {
-        System.out.println(dados);
-        return ResponseEntity.ok().body(new DadosDetalhamentoConsultaDto(null, null, null, null));
+    public ResponseEntity<DadosDetalhamentoConsultaDto> agendar(@RequestBody @Valid DadosAgendamentoConsultaDTO dados) {
+        var consulta = agendaDeConsultaService.agendar(dados);
+        return ResponseEntity.ok().body(new DadosDetalhamentoConsultaDto(consulta));
     }
 }

@@ -1,5 +1,6 @@
 package br.com.projeto.apiclinica.api.dto.consulta;
 
+import br.com.projeto.apiclinica.domain.models.Especialidade;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
@@ -14,5 +15,7 @@ public record DadosAgendamentoConsultaDTO(
 
         @NotNull
         @Future
-        LocalDateTime data) {
+        LocalDateTime data,
+
+        Especialidade especialidade) {
 }

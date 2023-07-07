@@ -1,4 +1,4 @@
-package br.com.projeto.apiclinica.infra.validacao;
+package br.com.projeto.apiclinica.infra.handlerExceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

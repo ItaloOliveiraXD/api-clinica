@@ -1,4 +1,4 @@
-package br.com.projeto.apiclinica.infra.validacao.exception;
+package br.com.projeto.apiclinica.infra.handlerExceptions.exception;
 
 public class NotFoundException extends RuntimeException{
     public NotFoundException(String msg) {

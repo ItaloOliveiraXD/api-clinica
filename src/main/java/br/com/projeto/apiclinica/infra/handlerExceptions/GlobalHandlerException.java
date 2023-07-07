@@ -1,7 +1,7 @@
-package br.com.projeto.apiclinica.infra.validacao;
+package br.com.projeto.apiclinica.infra.handlerExceptions;
 
-import br.com.projeto.apiclinica.infra.validacao.exception.DomainException;
-import br.com.projeto.apiclinica.infra.validacao.exception.NotFoundException;
+import br.com.projeto.apiclinica.infra.handlerExceptions.exception.DomainException;
+import br.com.projeto.apiclinica.infra.handlerExceptions.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
