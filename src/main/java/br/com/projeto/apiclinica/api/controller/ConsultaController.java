@@ -2,8 +2,8 @@ package br.com.projeto.apiclinica.api.controller;
 
 import br.com.projeto.apiclinica.api.dto.consulta.DadosAgendamentoConsultaDTO;
 import br.com.projeto.apiclinica.api.dto.consulta.DadosDetalhamentoConsultaDto;
-import br.com.projeto.apiclinica.domain.models.Consulta;
 import br.com.projeto.apiclinica.domain.service.AgendaDeConsultaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/consultas")
+@SecurityRequirement(name = "bearer-key")
 public class ConsultaController {
 
     @Autowired

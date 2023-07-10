@@ -6,6 +6,7 @@ import br.com.projeto.apiclinica.api.dto.medico.ListaMedicoDto;
 import br.com.projeto.apiclinica.api.dto.medico.MedicoDto;
 import br.com.projeto.apiclinica.domain.models.Medico;
 import br.com.projeto.apiclinica.domain.service.MedicoService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +28,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/medicos")
+@SecurityRequirement(name = "bearer-key")
 public class MedicoController {
 
     @Autowired
